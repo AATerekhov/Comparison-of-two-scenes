@@ -5,12 +5,12 @@ const rootDir = path.resolve(__dirname, "..");
 
 const requiredFiles = [
   "package.json",
-  "server.js",
-  "public/index.html",
+  "index.html",
+  "src/main.js",
   "public/build/potree/potree.js",
   "public/build/potree/potree.css",
   "public/build/potree/sidebar.html",
-  "node_modules/express/package.json",
+  "node_modules/vite/package.json",
 ];
 
 const errors = [];
@@ -35,17 +35,29 @@ for (const file of requiredFiles) {
 }
 
 try {
-  require.resolve("express");
+  require.resolve("vite");
 } catch (error) {
-  errors.push(`Dependency resolution failed for express: ${error.message}`);
+  errors.push(`Dependency resolution failed for vite: ${error.message}`);
 }
 
 const packageJsonPath = path.join(rootDir, "package.json");
 const packageJson = JSON.parse(fs.readFileSync(packageJsonPath, "utf8"));
 const scripts = packageJson.scripts || {};
 
-if (scripts.start !== "node server.js") {
+if (scripts.dev !== "vite") {
+  errors.push('Unexpected "dev" script in package.json');
+}
+
+if (scripts.build !== "vite build") {
+  errors.push('Unexpected "build" script in package.json');
+}
+
+if (scripts.start !== "vite") {
   errors.push('Unexpected "start" script in package.json');
+}
+
+if (scripts.preview !== "vite preview") {
+  errors.push('Unexpected "preview" script in package.json');
 }
 
 if (scripts.check !== "node scripts/check-integrity.js") {

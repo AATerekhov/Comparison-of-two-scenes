@@ -1,4 +1,10 @@
-window.AppConfig = {
+const baseUrl = import.meta.env.BASE_URL;
+
+function resolvePublicPath(relativePath) {
+  return new URL(relativePath, `http://local${baseUrl}`).pathname;
+}
+
+export const appConfig = {
   ui: {
     language: "en",
     description: "Potree.js development build for scene comparison.",
@@ -14,7 +20,7 @@ window.AppConfig = {
   pointclouds: {
     startup: {
       name: "vol_total",
-      path: "./pointclouds/vol_total/cloud.js",
+      path: resolvePublicPath("pointclouds/vol_total/cloud.js"),
       activeAttributeName: "rgba",
       size: 1,
     },

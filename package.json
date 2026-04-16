@@ -2,16 +2,18 @@
   "name": "comparison-of-two-scenes",
   "version": "1.0.0",
   "description": "Test task: compare two point cloud scenes with Potree.js",
-  "main": "server.js",
   "scripts": {
-    "start": "node server.js",
+    "dev": "vite",
+    "build": "vite build",
+    "start": "vite",
+    "preview": "vite preview",
     "check": "node scripts/check-integrity.js",
     "test": "npm run check"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "dependencies": {
-    "express": "^5.2.1"
+  "devDependencies": {
+    "vite": "^5.4.19"
   }
 }
