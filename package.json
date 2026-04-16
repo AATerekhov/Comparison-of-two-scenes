@@ -1,0 +1,17 @@
+{
+  "name": "comparison-of-two-scenes",
+  "version": "1.0.0",
+  "description": "Test task: compare two point cloud scenes with Potree.js",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "check": "node scripts/check-integrity.js",
+    "test": "npm run check"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^5.2.1"
+  }
+}
