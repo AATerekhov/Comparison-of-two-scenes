@@ -1,6 +1,6 @@
 import { Potree } from "../vendor/potree-runtime.js";
 
-export function createViewer(appConfig, container) {
+export function createViewer(appConfig, container, options = {}) {
   const viewer = new Potree.Viewer(container);
 
   viewer.setEDLEnabled(appConfig.viewer.enableEDL);
@@ -11,10 +11,12 @@ export function createViewer(appConfig, container) {
   viewer.loadSettingsFromURL();
   viewer.setDescription(appConfig.ui.description);
 
-  viewer.loadGUI(() => {
-    viewer.setLanguage(appConfig.ui.language);
-    viewer.toggleSidebar();
-  });
-
+  if (options.withGUI) {
+    viewer.loadGUI(() => {
+      viewer.setLanguage(appConfig.ui.language);
+      viewer.toggleSidebar();
+    });
+  }
+  
   return viewer;
 }

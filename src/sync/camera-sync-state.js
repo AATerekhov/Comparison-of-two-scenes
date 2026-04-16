@@ -1,6 +1,6 @@
-export function getCameraState() {
-    return {
-  syncEnabled: true,
-  isSyncing: false
-}
+export function createCameraSyncState(initialEnabled = true) {
+  return {
+    syncEnabled: initialEnabled,
+    isSyncing: false,
+  };
 }

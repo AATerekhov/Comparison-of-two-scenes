@@ -5,7 +5,7 @@ export function getAppDom() {
     left: document.getElementById("viewer-left"),
     right: document.getElementById("viewer-right"),
     divider: document.getElementById("divider"),
-    syncToggle: document.getElementById("..."),
-    syncState: document.getElementById("___")
+    syncToggle: document.getElementById("sync-toggle"),
+    syncState: document.getElementById("sync-state"),
   };
 }

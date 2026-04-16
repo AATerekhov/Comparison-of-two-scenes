@@ -111,3 +111,32 @@ code {
 .status-panel__badge--error {
   color: var(--status-error);
 }
+
+.sync-controls {
+  margin-top: 14px;
+  padding-top: 12px;
+  border-top: 1px solid var(--panel-border);
+}
+
+.sync-toggle-button {
+  appearance: none;
+  border: 1px solid transparent;
+  border-radius: 10px;
+  padding: 10px 14px;
+  font: inherit;
+  color: #0f172a;
+  cursor: pointer;
+  transition: transform 0.12s ease, opacity 0.12s ease, background 0.12s ease;
+}
+
+.sync-toggle-button:hover {
+  transform: translateY(-1px);
+}
+
+.sync-toggle-button--active {
+  background: var(--status-ok);
+}
+
+.sync-toggle-button--inactive {
+  background: var(--status-warn);
+}

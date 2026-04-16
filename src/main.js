@@ -4,21 +4,34 @@ import { createStatusPanel } from "./core/status-panel.js";
 import { createDefaultPointCloudLoader } from "./pointclouds/default-pointcloud-loader.js";
 import { createViewer } from "./viewer/viewer-factory.js";
 import { setupDivider } from "./viewer/setup-divider.js";
+import { createCameraSyncService } from "./sync/camera-sync-service.js";
+import { createSyncToggleController } from "./sync/sync-toggle-controller.js";
 
 function bootstrapApp() {
   const appDom = getAppDom();
   const statusPanel = createStatusPanel(appDom);
   const pointCloudLoader = createDefaultPointCloudLoader({ appConfig, statusPanel });
-  const viewerLeft = createViewer(appConfig, appDom.left);
-  const viewerRight = createViewer(appConfig, appDom.right);
+  const viewerLeft = createViewer(appConfig, appDom.left, { withGUI: true });
+  const viewerRight = createViewer(appConfig, appDom.right, { withGUI: false });
 
   pointCloudLoader.load(viewerLeft);
   pointCloudLoader.load(viewerRight);
 
-  setupDivider();
+  setupDivider({
+    divider: appDom.divider,
+    leftPane: appDom.left,
+    rightPane: appDom.right,
+  });
   
-  //const syncService = createCameraSyncService(viewerLeft, viewerRight);
-  //createSyncToggleController(dom.syncToggleButton, syncService);
+  const cameraSyncService = createCameraSyncService(viewerLeft, viewerRight, {
+    enabled: true,
+  });
+
+  createSyncToggleController({
+    button: appDom.syncToggle,
+    stateLabel: appDom.syncState,
+    syncService: cameraSyncService,
+  });
 
   globalThis.addEventListener("error", (errorEvent) => {
     if (String(errorEvent.message || "").includes("point")) {

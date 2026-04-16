@@ -25,6 +25,20 @@
       <p class="status-panel__text">
         Startup dataset: <code id="dataset-path"></code>
       </p>
+
+      <div class="sync-controls">
+        <p class="status-panel__text">
+          Camera sync:
+          <span id="sync-state" class="status-panel__badge status-panel__badge--ok">enabled</span>
+        </p>
+
+        <button id="sync-toggle" type="button" class="sync-toggle-button">
+          Разблокировать
+        </button> 
+         <button id="rendering" type="button" class="sync-toggle-button">
+          Рендеринг
+        </button>
+      </div>
     </aside>
 
     <main id="viewer-shell" class="viewer-shell">

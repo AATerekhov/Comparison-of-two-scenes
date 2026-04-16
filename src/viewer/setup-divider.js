@@ -1,27 +1,43 @@
-export function setupDivider() {
-  const divider = document.getElementById("divider");
-  const left = document.getElementById("viewer-left");
-  const right = document.getElementById("viewer-right");
-
+export function setupDivider({ divider, leftPane, rightPane }) {
   let isDragging = false;
 
-  divider.addEventListener("mousedown", () => {
+  function onMouseDown() {
     isDragging = true;
-  });
+    document.body.style.userSelect = "none";
+    document.body.style.cursor = "col-resize";
+  }
 
-  window.addEventListener("mouseup", () => {
+  function onMouseUp() {
     isDragging = false;
-  });
+    document.body.style.userSelect = "";
+    document.body.style.cursor = "";
+  }
 
-  window.addEventListener("mousemove", (e) => {
-    if (!isDragging) return;
+  function onMouseMove(event) {
+    if (!isDragging) {
+      return;
+    }
 
-    const percent = (e.clientX / window.innerWidth) * 100;
+    const shell = divider.parentElement;
+    const shellRect = shell.getBoundingClientRect();
+    const dividerWidth = divider.offsetWidth;
 
-    left.style.flex = "none";
-    left.style.width = percent + "%";
+    const minPaneWidth = 240;
+    let leftWidth = event.clientX - shellRect.left;
 
-    right.style.flex = "none";
-    right.style.width = (100 - percent) + "%";
-  });
+    leftWidth = Math.max(minPaneWidth, leftWidth);
+    leftWidth = Math.min(shellRect.width - minPaneWidth - dividerWidth, leftWidth);
+
+    const rightWidth = shellRect.width - leftWidth - dividerWidth;
+
+    leftPane.style.flex = "0 0 auto";
+    rightPane.style.flex = "0 0 auto";
+
+    leftPane.style.width = `${leftWidth}px`;
+    rightPane.style.width = `${rightWidth}px`;
+  }
+
+  divider.addEventListener("mousedown", onMouseDown);
+  window.addEventListener("mouseup", onMouseUp);
+  window.addEventListener("mousemove", onMouseMove);
 }
