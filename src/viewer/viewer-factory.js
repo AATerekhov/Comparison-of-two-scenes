@@ -1,7 +1,6 @@
 import { Potree } from "../vendor/potree-runtime.js";
 
-export function createViewer(appConfig) {
-  const container = document.getElementById(appConfig.viewer.containerId);
+export function createViewer(appConfig, container) {
   const viewer = new Potree.Viewer(container);
 
   viewer.setEDLEnabled(appConfig.viewer.enableEDL);

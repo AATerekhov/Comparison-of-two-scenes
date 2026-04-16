@@ -36,8 +36,29 @@ code {
 }
 
 .viewer-shell {
+  display: flex;
   width: 100%;
   height: 100%;
+  overflow: hidden;
+}
+
+.viewer {
+  flex: 1;
+  position: relative;
+}
+
+.viewer-pane {
+  flex: 1 1 0;
+  min-width: 0;
+  position: relative;
+  overflow: hidden;
+}
+
+.divider {
+  width: 6px;
+  background: #cfcfcf;
+  cursor: col-resize;
+  flex: 0 0 2px;
 }
 
 .viewer-shell__render-area {
@@ -46,9 +67,11 @@ code {
   background: var(--viewer-bg);
 }
 
+
+
 .status-panel {
   position: absolute;
-  top: 20px;
+  top: 40px;
   left: 20px;
   z-index: 10000;
   max-width: 420px;

@@ -10,7 +10,7 @@
   <link rel="stylesheet" href="/libs/openlayers3/ol.css">
   <link rel="stylesheet" href="/libs/spectrum/spectrum.css">
   <link rel="stylesheet" href="/libs/jstree/themes/mixed/style.css">
-  <link rel="stylesheet" href="/app/styles/main.css">
+  <link rel="stylesheet" href="/public/app/styles/main.css">
 </head>
 <body>
   <div id="app-root" class="app-shell">
@@ -28,7 +28,9 @@
     </aside>
 
     <main id="viewer-shell" class="viewer-shell">
-      <div id="potree_render_area" class="viewer-shell__render-area"></div>
+      <div id="viewer-left" class="viewer-pane"></div>
+      <div id="divider" class="divider"></div>
+      <div id="viewer-right" class="viewer-pane"></div>
     </main>
   </div>
 
