@@ -1,6 +1,6 @@
 # Comparison-of-two-scenes
 
-Test task: compare two point cloud scenes with Potree.js.
+Тестовое задание: приложение для сравнения двух облаков точек с использованием Potree.js.
 
 ## Commands
 
@@ -12,4 +12,62 @@ Test task: compare two point cloud scenes with Potree.js.
 
 ## Note
 
-The app uses Vite as the entry point and keeps Potree assets and point cloud datasets in `public/`, so they are served as static files in both dev and production without a custom Express server.
+Приложение построено на базе Vite и предназначено для одновременного отображения двух облаков точек в отдельных viewport’ах.
+
+Основные возможности:
+
+- Отображение двух сцен рядом
+- Изменяемый размер окон (разделитель)
+- Синхронизация камер между окнами
+- Переключение режимов визуализации (например, по высоте)
+- Панель состояния и панель управления
+
+Все ассеты Potree и данные облаков точек размещаются в директории `public/` и раздаются как статические файлы.
+
+## Установка и запуск
+
+### 1. Установить зависимости
+
+```bash
+npm install
+```
+
+### 2. Подготовить ресурсы Potree
+
+Перед запуском необходимо вручную скопировать файлы Potree в директорию public/.
+Структура должна выглядеть так:
+
+```bash
+public/
+  build/
+    potree/
+      potree.js
+      potree.css
+  libs/
+    three.js/
+    jquery/
+    d3/
+    proj4/
+    openlayers3/
+    spectrum/
+    jstree/
+  pointclouds/
+    <ваши датасеты>
+```
+### 3. Где взять Potree
+
+Официальный репозиторий:
+
+https://github.com/potree/potree
+
+Оттуда нужно взять:
+
+- build/potree
+- libs
+- (опционально) примеры pointcloud
+
+## Примечания
+- Приложение не использует сервер — всё работает через Vite
+- Все ресурсы Potree должны находиться в public/
+- Данные point cloud должны быть предварительно сконвертированы в формат Potree (cloud.js)
+- Не все датасеты содержат одинаковые атрибуты (например, intensity может отсутствовать)
