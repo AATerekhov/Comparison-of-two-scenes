@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Comparison of Two Scenes</title>
+
+  <link rel="stylesheet" href="/build/potree/potree.css">
+  <link rel="stylesheet" href="/libs/jquery-ui/jquery-ui.min.css">
+  <link rel="stylesheet" href="/libs/openlayers3/ol.css">
+  <link rel="stylesheet" href="/libs/spectrum/spectrum.css">
+  <link rel="stylesheet" href="/libs/jstree/themes/mixed/style.css">
+  <link rel="stylesheet" href="/public/app/styles/main.css">
+</head>
+<body>
+  <div id="app-root" class="app-shell">
+    <aside class="status-panel">
+      <h1 class="status-panel__title">Potree Viewer</h1>
+
+      <p id="cloud-status" class="status-panel__text">
+        <span class="status-panel__badge status-panel__badge--warn">
+          Loading point cloud...
+        </span>
+      </p>
+
+      <p class="status-panel__text">
+        The viewer UI is initialized and available through the Potree sidebar.
+      </p>
+
+      <p class="status-panel__text">
+        Startup dataset: <code id="dataset-path"></code>
+      </p>
+    </aside>
+
+    <aside class="controls-panel">
+      <div class="sync-controls">
+        <p class="status-panel__text">
+          Camera sync:
+          <span id="sync-state" class="status-panel__badge status-panel__badge--ok">
+            enabled
+          </span>
+        </p>
+
+        <button id="sync-toggle" type="button" class="sync-toggle-button">
+          Разблокировать
+        </button>
+      </div>
+
+      <div class="render-controls">
+        <p class="status-panel__text">
+          Render mode:
+          <span id="render-mode-state" class="status-panel__badge status-panel__badge--warn">
+            both: rgba
+          </span>
+        </p>
+
+        <button id="render-mode-toggle" type="button" class="render-mode-button">
+          Включить Height / Intensity
+        </button>
+      </div>
+    </aside>
+    <main id="viewer-shell" class="viewer-shell">
+      <div id="viewer-left" class="viewer-pane"></div>
+      <div id="divider" class="divider"></div>
+      <div id="viewer-right" class="viewer-pane"></div>
+    </main>
+  </div>
+
+  <script src="/libs/jquery/jquery-3.1.1.min.js"></script>
+  <script src="/libs/spectrum/spectrum.js"></script>
+  <script src="/libs/jquery-ui/jquery-ui.min.js"></script>
+  <script src="/libs/other/BinaryHeap.js"></script>
+  <script src="/libs/tween/tween.min.js"></script>
+  <script src="/libs/d3/d3.js"></script>
+  <script src="/libs/proj4/proj4.js"></script>
+  <script src="/libs/openlayers3/ol.js"></script>
+  <script src="/libs/i18next/i18next.js"></script>
+  <script src="/libs/jstree/jstree.js"></script>
+  <script src="/libs/three.js/build/three.js"></script>
+  <script src="/build/potree/potree.js"></script>
+  <script type="module" src="/src/main.js"></script>
+</body>
+</html>

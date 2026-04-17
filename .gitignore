@@ -137,3 +137,29 @@ dist
 # Vite logs files
 vite.config.js.timestamp-*
 vite.config.ts.timestamp-*
+
+# OS / editor files
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+
+# Local temp output
+*.out
+tmp/
+temp/
+
+# Large point cloud source files
+*.las
+*.laz
+*.copc.laz
+*.e57
+*.ply
+
+# Local point cloud datasets and converter output
+/public/pointclouds/
+/data/
+
+# Local viewer vendor bundles
+public/build/
+public/libs/

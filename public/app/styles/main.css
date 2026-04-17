@@ -1,0 +1,155 @@
+:root {
+  --app-bg: #0d1117;
+  --app-fg: #e6edf3;
+  --panel-bg: rgba(15, 23, 42, 0.88);
+  --panel-border: rgba(148, 163, 184, 0.25);
+  --panel-text: #cbd5e1;
+  --status-ok: #86efac;
+  --status-warn: #fcd34d;
+  --status-error: #fca5a5;
+  --status-info: #93c5fd;
+  --viewer-bg: radial-gradient(circle at top, #1e293b 0%, #0f172a 45%, #020617 100%);
+  --font-ui: "Segoe UI", Tahoma, sans-serif;
+  --font-code: Consolas, monospace;
+}
+
+html,
+body {
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  overflow: hidden;
+  background: var(--app-bg);
+  color: var(--app-fg);
+  font-family: var(--font-ui);
+}
+
+code {
+  color: var(--status-info);
+  font-family: var(--font-code);
+}
+
+.app-shell {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+.viewer-shell {
+  display: flex;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+.viewer-pane {
+  flex: 1 1 0;
+  min-width: 0;
+  position: relative;
+  overflow: hidden;
+}
+
+.divider {
+  width: 6px;
+  background: #cfcfcf;
+  cursor: col-resize;
+  flex: 0 0 2px;
+}
+
+/* Общий стиль для overlay-панелей */
+.status-panel,
+.controls-panel {
+  position: absolute;
+  left: 20px;
+  z-index: 10000;
+  width: 320px;
+  padding: 16px 18px;
+  border: 1px solid var(--panel-border);
+  border-radius: 14px;
+  background: var(--panel-bg);
+  box-shadow: 0 18px 40px rgba(2, 6, 23, 0.35);
+  backdrop-filter: blur(10px);
+}
+
+/* Верхняя панель */
+.status-panel {
+  top: 40px;
+}
+
+/* Нижняя левая панель */
+.controls-panel {
+  bottom: 24px;
+}
+
+.status-panel__title {
+  margin: 0 0 10px;
+  font-size: 20px;
+  line-height: 1.2;
+}
+
+.status-panel__text {
+  margin: 0 0 10px;
+  font-size: 14px;
+  line-height: 1.5;
+  color: var(--panel-text);
+}
+
+.status-panel__badge {
+  font-weight: 600;
+}
+
+.status-panel__badge--ok {
+  color: var(--status-ok);
+}
+
+.status-panel__badge--warn {
+  color: var(--status-warn);
+}
+
+.status-panel__badge--error {
+  color: var(--status-error);
+}
+
+.sync-controls {
+  margin-bottom: 14px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid var(--panel-border);
+}
+
+.render-controls {
+  margin-top: 0;
+  padding-top: 0;
+}
+
+.sync-toggle-button,
+.render-mode-button {
+  appearance: none;
+  border: 1px solid transparent;
+  border-radius: 10px;
+  padding: 10px 14px;
+  font: inherit;
+  color: #0f172a;
+  cursor: pointer;
+  transition: transform 0.12s ease, opacity 0.12s ease, background 0.12s ease;
+}
+
+.sync-toggle-button:hover,
+.render-mode-button:hover {
+  transform: translateY(-1px);
+}
+
+.sync-toggle-button--active {
+  background: var(--status-ok);
+}
+
+.sync-toggle-button--inactive {
+  background: var(--status-warn);
+}
+
+.render-mode-button--active {
+  background: var(--status-info);
+}
+
+.render-mode-button--inactive {
+  background: var(--status-warn);
+}
