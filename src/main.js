@@ -26,7 +26,7 @@ async function bootstrapApp() {
   setupDivider({
     divider: appDom.divider,
     leftPane: appDom.left,
-    rightPane: appDom.right,
+    viewerShell: appDom.viewerShell,
   });
   
   const cameraSyncService = createCameraSyncService(viewerLeft, viewerRight, {
@@ -49,8 +49,7 @@ async function bootstrapApp() {
     button: appDom.renderModeToggle,
     stateLabel: appDom.renderModeState,
     renderModeService,
-  });
-  
+  });  
 
   globalThis.addEventListener("error", (errorEvent) => {
     if (String(errorEvent.message || "").includes("point")) {

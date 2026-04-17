@@ -1,16 +1,37 @@
-export function setupDivider({ divider, leftPane, rightPane }) {
+export function setupDivider({ divider, leftPane, viewerShell }) {
   let isDragging = false;
 
-  function onMouseDown() {
+  function setDividerPosition(clientX) {
+    const shellRect = viewerShell.getBoundingClientRect();
+    const minOffset = 40;
+
+    let x = clientX - shellRect.left;
+    x = Math.max(minOffset, x);
+    x = Math.min(shellRect.width - minOffset, x);
+
+    const rightInset = shellRect.width - x;
+
+    leftPane.style.clipPath = `inset(0 ${rightInset}px 0 0)`;
+    divider.style.left = `${x}px`;
+  }
+
+  function setInitialPosition() {
+    const shellRect = viewerShell.getBoundingClientRect();
+    const x = shellRect.width / 2;
+
+    leftPane.style.clipPath = `inset(0 ${shellRect.width - x}px 0 0)`;
+    divider.style.left = `${x}px`;
+  }
+
+  function onMouseDown(event) {
+    event.preventDefault();
+    event.stopPropagation();
+
     isDragging = true;
     document.body.style.userSelect = "none";
     document.body.style.cursor = "col-resize";
-  }
 
-  function onMouseUp() {
-    isDragging = false;
-    document.body.style.userSelect = "";
-    document.body.style.cursor = "";
+    setDividerPosition(event.clientX);
   }
 
   function onMouseMove(event) {
@@ -18,26 +39,42 @@ export function setupDivider({ divider, leftPane, rightPane }) {
       return;
     }
 
-    const shell = divider.parentElement;
-    const shellRect = shell.getBoundingClientRect();
-    const dividerWidth = divider.offsetWidth;
+    event.preventDefault();
+    event.stopPropagation();
 
-    const minPaneWidth = 240;
-    let leftWidth = event.clientX - shellRect.left;
+    setDividerPosition(event.clientX);
+  }
 
-    leftWidth = Math.max(minPaneWidth, leftWidth);
-    leftWidth = Math.min(shellRect.width - minPaneWidth - dividerWidth, leftWidth);
+  function onMouseUp(event) {
+    if (!isDragging) {
+      return;
+    }
 
-    const rightWidth = shellRect.width - leftWidth - dividerWidth;
+    event.preventDefault();
+    event.stopPropagation();
 
-    leftPane.style.flex = "0 0 auto";
-    rightPane.style.flex = "0 0 auto";
+    isDragging = false;
+    document.body.style.userSelect = "";
+    document.body.style.cursor = "";
+  }
 
-    leftPane.style.width = `${leftWidth}px`;
-    rightPane.style.width = `${rightWidth}px`;
+  function onResize() {
+    setInitialPosition();
   }
 
   divider.addEventListener("mousedown", onMouseDown);
-  window.addEventListener("mouseup", onMouseUp);
-  window.addEventListener("mousemove", onMouseMove);
+  window.addEventListener("mousemove", onMouseMove, true);
+  window.addEventListener("mouseup", onMouseUp, true);
+  window.addEventListener("resize", onResize);
+
+  setInitialPosition();
+
+  return {
+    destroy() {
+      divider.removeEventListener("mousedown", onMouseDown);
+      window.removeEventListener("mousemove", onMouseMove, true);
+      window.removeEventListener("mouseup", onMouseUp, true);
+      window.removeEventListener("resize", onResize);
+    },
+  };
 }
