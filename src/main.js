@@ -6,16 +6,22 @@ import { createViewer } from "./viewer/viewer-factory.js";
 import { setupDivider } from "./viewer/setup-divider.js";
 import { createCameraSyncService } from "./sync/camera-sync-service.js";
 import { createSyncToggleController } from "./sync/sync-toggle-controller.js";
+import { createPointCloudRenderModeService } from "./pointclouds/pointcloud-render-mode-service.js";
+import { createRenderModeToggleController } from "./ui/render-mode-toggle-controller.js";
+import { debugDeclaredAttributes } from "./viewer/debug-intensity-values.js";
 
-function bootstrapApp() {
+async function bootstrapApp() {
   const appDom = getAppDom();
   const statusPanel = createStatusPanel(appDom);
   const pointCloudLoader = createDefaultPointCloudLoader({ appConfig, statusPanel });
+
   const viewerLeft = createViewer(appConfig, appDom.left, { withGUI: true });
   const viewerRight = createViewer(appConfig, appDom.right, { withGUI: false });
 
-  pointCloudLoader.load(viewerLeft);
-  pointCloudLoader.load(viewerRight);
+  const leftPointCloud = await pointCloudLoader.load(viewerLeft);
+  const rightPointCloud = await pointCloudLoader.load(viewerRight);
+
+  debugDeclaredAttributes(rightPointCloud, "RIGHT");
 
   setupDivider({
     divider: appDom.divider,
@@ -32,6 +38,19 @@ function bootstrapApp() {
     stateLabel: appDom.syncState,
     syncService: cameraSyncService,
   });
+
+  const renderModeService = createPointCloudRenderModeService({
+    leftPointCloud,
+    rightPointCloud,
+    defaultAttributeName: appConfig.pointclouds.startup.activeAttributeName,
+  });
+
+  createRenderModeToggleController({
+    button: appDom.renderModeToggle,
+    stateLabel: appDom.renderModeState,
+    renderModeService,
+  });
+  
 
   globalThis.addEventListener("error", (errorEvent) => {
     if (String(errorEvent.message || "").includes("point")) {

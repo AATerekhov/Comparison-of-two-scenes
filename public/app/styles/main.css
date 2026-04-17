@@ -42,11 +42,6 @@ code {
   overflow: hidden;
 }
 
-.viewer {
-  flex: 1;
-  position: relative;
-}
-
 .viewer-pane {
   flex: 1 1 0;
   min-width: 0;
@@ -61,26 +56,29 @@ code {
   flex: 0 0 2px;
 }
 
-.viewer-shell__render-area {
-  width: 100%;
-  height: 100%;
-  background: var(--viewer-bg);
-}
-
-
-
-.status-panel {
+/* Общий стиль для overlay-панелей */
+.status-panel,
+.controls-panel {
   position: absolute;
-  top: 40px;
   left: 20px;
   z-index: 10000;
-  max-width: 420px;
+  width: 320px;
   padding: 16px 18px;
   border: 1px solid var(--panel-border);
   border-radius: 14px;
   background: var(--panel-bg);
   box-shadow: 0 18px 40px rgba(2, 6, 23, 0.35);
   backdrop-filter: blur(10px);
+}
+
+/* Верхняя панель */
+.status-panel {
+  top: 40px;
+}
+
+/* Нижняя левая панель */
+.controls-panel {
+  bottom: 24px;
 }
 
 .status-panel__title {
@@ -113,12 +111,18 @@ code {
 }
 
 .sync-controls {
-  margin-top: 14px;
-  padding-top: 12px;
-  border-top: 1px solid var(--panel-border);
+  margin-bottom: 14px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid var(--panel-border);
 }
 
-.sync-toggle-button {
+.render-controls {
+  margin-top: 0;
+  padding-top: 0;
+}
+
+.sync-toggle-button,
+.render-mode-button {
   appearance: none;
   border: 1px solid transparent;
   border-radius: 10px;
@@ -129,7 +133,8 @@ code {
   transition: transform 0.12s ease, opacity 0.12s ease, background 0.12s ease;
 }
 
-.sync-toggle-button:hover {
+.sync-toggle-button:hover,
+.render-mode-button:hover {
   transform: translateY(-1px);
 }
 
@@ -138,5 +143,13 @@ code {
 }
 
 .sync-toggle-button--inactive {
+  background: var(--status-warn);
+}
+
+.render-mode-button--active {
+  background: var(--status-info);
+}
+
+.render-mode-button--inactive {
   background: var(--status-warn);
 }

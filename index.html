@@ -16,31 +16,49 @@
   <div id="app-root" class="app-shell">
     <aside class="status-panel">
       <h1 class="status-panel__title">Potree Viewer</h1>
+
       <p id="cloud-status" class="status-panel__text">
-        <span class="status-panel__badge status-panel__badge--warn">Loading point cloud...</span>
+        <span class="status-panel__badge status-panel__badge--warn">
+          Loading point cloud...
+        </span>
       </p>
+
       <p class="status-panel__text">
         The viewer UI is initialized and available through the Potree sidebar.
       </p>
+
       <p class="status-panel__text">
         Startup dataset: <code id="dataset-path"></code>
       </p>
+    </aside>
 
+    <aside class="controls-panel">
       <div class="sync-controls">
         <p class="status-panel__text">
           Camera sync:
-          <span id="sync-state" class="status-panel__badge status-panel__badge--ok">enabled</span>
+          <span id="sync-state" class="status-panel__badge status-panel__badge--ok">
+            enabled
+          </span>
         </p>
 
         <button id="sync-toggle" type="button" class="sync-toggle-button">
           Разблокировать
-        </button> 
-         <button id="rendering" type="button" class="sync-toggle-button">
-          Рендеринг
+        </button>
+      </div>
+
+      <div class="render-controls">
+        <p class="status-panel__text">
+          Render mode:
+          <span id="render-mode-state" class="status-panel__badge status-panel__badge--warn">
+            both: rgba
+          </span>
+        </p>
+
+        <button id="render-mode-toggle" type="button" class="render-mode-button">
+          Включить Height / Intensity
         </button>
       </div>
     </aside>
-
     <main id="viewer-shell" class="viewer-shell">
       <div id="viewer-left" class="viewer-pane"></div>
       <div id="divider" class="divider"></div>
