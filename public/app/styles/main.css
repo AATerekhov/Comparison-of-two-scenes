@@ -36,24 +36,50 @@ code {
 }
 
 .viewer-shell {
-  display: flex;
+  position: relative;
   width: 100%;
   height: 100%;
   overflow: hidden;
 }
 
 .viewer-pane {
-  flex: 1 1 0;
-  min-width: 0;
-  position: relative;
-  overflow: hidden;
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.viewer-pane--base {
+  z-index: 1;
+}
+
+.viewer-pane--overlay {
+  z-index: 2;
+  clip-path: inset(0 50% 0 0);
+}
+
+.viewer-pane--passthrough {
+  pointer-events: none;
 }
 
 .divider {
-  width: 6px;
-  background: #cfcfcf;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 34px;
+  height: 34px;
+  transform: translate(-50%, -50%);
+  border-radius: 50%;
+  background: rgba(207, 207, 207, 0.95);
+  border: 2px solid rgba(15, 23, 42, 0.85);
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.35);
   cursor: col-resize;
-  flex: 0 0 2px;
+  z-index: 3;
+  pointer-events: auto;
+}
+
+.divider--passthrough {
+  pointer-events: none;
 }
 
 /* Общий стиль для overlay-панелей */
