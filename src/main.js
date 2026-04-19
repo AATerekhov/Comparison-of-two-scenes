@@ -6,7 +6,8 @@ import { createViewer } from "./viewer/viewer-factory.js";
 import { setupDivider } from "./viewer/divider/setup-divider.js";
 import { createCameraSyncService } from "./sync/camera-sync-service.js";
 import { createSyncToggleController } from "./sync/sync-toggle-controller.js";
-import { createPointCloudRenderModeService } from "./pointclouds/pointcloud-render-mode-service.js";
+import { createPointCloudRenderModeService } from "./pointclouds/render-mode/pointcloud-render-mode-service.js";
+import { compareElevationIntensityMode } from "./pointclouds/render-mode/contracts/pointcloud-render-mode-contracts.js";
 import { createRenderModeToggleController } from "./ui/render-mode-toggle-controller.js";
 import { debugDeclaredAttributes } from "./viewer/debug-intensity-values.js";
 
@@ -44,13 +45,14 @@ async function bootstrapApp() {
     leftPointCloud,
     rightPointCloud,
     defaultAttributeName: appConfig.pointclouds.startup.activeAttributeName,
+    compareMode: compareElevationIntensityMode,
   });
 
   createRenderModeToggleController({
     button: appDom.renderModeToggle,
     stateLabel: appDom.renderModeState,
     renderModeService,
-  });  
+  });
 
   globalThis.addEventListener("error", (errorEvent) => {
     if (String(errorEvent.message || "").includes("point")) {

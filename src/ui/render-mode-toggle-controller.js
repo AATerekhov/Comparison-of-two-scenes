@@ -3,17 +3,27 @@ export function createRenderModeToggleController({
   stateLabel,
   renderModeService,
 }) {
+  function setBadgeType(badgeType) {
+    stateLabel.classList.toggle(
+      "status-panel__badge--ok",
+      badgeType === "ok"
+    );
+
+    stateLabel.classList.toggle(
+      "status-panel__badge--warn",
+      badgeType === "warn"
+    );
+  }
+
   function render() {
+    const currentMode = renderModeService.getCurrentMode();
     const compareEnabled = renderModeService.isCompareModeEnabled();
 
-    stateLabel.textContent = renderModeService.getCurrentModeLabel();
+    stateLabel.textContent = currentMode.label;
 
-    stateLabel.classList.toggle("status-panel__badge--ok", compareEnabled);
-    stateLabel.classList.toggle("status-panel__badge--warn", !compareEnabled);
+    setBadgeType(currentMode.ui?.badgeType ?? "warn");
 
-    button.textContent = compareEnabled
-      ? "Вернуть RGBA"
-      : "Включить Height / Intensity";
+    button.textContent = currentMode.ui?.nextButtonText ?? "Переключить режим";
 
     button.classList.toggle("render-mode-button--active", compareEnabled);
     button.classList.toggle("render-mode-button--inactive", !compareEnabled);
@@ -25,10 +35,12 @@ export function createRenderModeToggleController({
   }
 
   button.addEventListener("click", handleClick);
+
   render();
 
   return {
     render,
+
     destroy() {
       button.removeEventListener("click", handleClick);
     },
