@@ -3,7 +3,7 @@ import { getAppDom } from "./core/dom.js";
 import { createStatusPanel } from "./core/status-panel.js";
 import { createDefaultPointCloudLoader } from "./pointclouds/default-pointcloud-loader.js";
 import { createViewer } from "./viewer/viewer-factory.js";
-import { setupDivider } from "./viewer/setup-divider.js";
+import { setupDivider } from "./viewer/divider/setup-divider.js";
 import { createCameraSyncService } from "./sync/camera-sync-service.js";
 import { createSyncToggleController } from "./sync/sync-toggle-controller.js";
 import { createPointCloudRenderModeService } from "./pointclouds/pointcloud-render-mode-service.js";
@@ -15,8 +15,8 @@ async function bootstrapApp() {
   const statusPanel = createStatusPanel(appDom);
   const pointCloudLoader = createDefaultPointCloudLoader({ appConfig, statusPanel });
 
-  const viewerLeft = createViewer(appConfig, appDom.left, { withGUI: true });
-  const viewerRight = createViewer(appConfig, appDom.right, { withGUI: false });
+  const viewerLeft = createViewer(appConfig, appDom.left, { withGUI: true, background: "gradient"});
+  const viewerRight = createViewer(appConfig, appDom.right, { withGUI: false, background: "black" });
 
   const leftPointCloud = await pointCloudLoader.load(viewerLeft);
   const rightPointCloud = await pointCloudLoader.load(viewerRight);
@@ -26,6 +26,7 @@ async function bootstrapApp() {
   setupDivider({
     divider: appDom.divider,
     leftPane: appDom.left,
+    rightPane: appDom.right,
     viewerShell: appDom.viewerShell,
   });
   

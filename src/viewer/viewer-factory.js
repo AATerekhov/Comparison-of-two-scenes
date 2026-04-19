@@ -7,7 +7,9 @@ export function createViewer(appConfig, container, options = {}) {
   viewer.setFOV(appConfig.viewer.fov);
   viewer.setPointBudget(appConfig.viewer.pointBudget);
   viewer.setMinNodeSize(appConfig.viewer.minNodeSize);
-  viewer.setBackground(appConfig.viewer.background);
+
+  viewer.setBackground(options.background ?? appConfig.viewer.background);
+
   viewer.loadSettingsFromURL();
   viewer.setDescription(appConfig.ui.description);
 

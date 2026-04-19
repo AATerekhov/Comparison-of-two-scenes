@@ -58,16 +58,28 @@ code {
   clip-path: inset(0 50% 0 0);
 }
 
+.viewer-pane--passthrough {
+  pointer-events: none;
+}
+
 .divider {
   position: absolute;
-  top: 0;
+  top: 50%;
   left: 50%;
-  transform: translateX(-50%);
-  width: 2px;
-  height: 100%;
-  background: #cfcfcf;
+  width: 34px;
+  height: 34px;
+  transform: translate(-50%, -50%);
+  border-radius: 50%;
+  background: rgba(207, 207, 207, 0.95);
+  border: 2px solid rgba(15, 23, 42, 0.85);
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.35);
   cursor: col-resize;
   z-index: 3;
+  pointer-events: auto;
+}
+
+.divider--passthrough {
+  pointer-events: none;
 }
 
 /* Общий стиль для overlay-панелей */
