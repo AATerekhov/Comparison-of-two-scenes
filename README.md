@@ -2,6 +2,8 @@
 
 Тестовое задание: приложение для сравнения двух облаков точек с использованием Potree.js.
 
+![общий вид](https://github.com/AATerekhov/Comparison-of-two-scenes/blob/main/public/images/Potree.png)
+
 ## Commands
 
 - `npm run check` - validate project integrity and required dependencies.
