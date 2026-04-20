@@ -6,6 +6,7 @@ export function getAppDom() {
     left: document.getElementById("viewer-left"),
     right: document.getElementById("viewer-right"),
     divider: document.getElementById("divider"),
+    viewerShell: document.getElementById("viewer-shell"),
 
     syncToggle: document.getElementById("sync-toggle"),
     syncState: document.getElementById("sync-state"),
